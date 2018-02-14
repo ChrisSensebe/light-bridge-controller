@@ -16,8 +16,9 @@
   "author": "ChrisSensebe",
   "license": "ISC",
   "dependencies": {
-    "typescript": "^2.6.2",
-    "@types/node": "^9.4.0"
+    "@types/node": "^9.4.0",
+    "axios": "^0.17.1",
+    "typescript": "^2.6.2"
   },
   "devDependencies": {
     "jest": "^22.1.4",
