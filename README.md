@@ -1,3 +1,6 @@
-# typescript-node-starter
+# light bridge polling
 
-## starter for node/typescript projects
+polling app for hue bridge.
+
+watch lights for reachable state,
+and restore them to previous status
