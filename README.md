@@ -1,6 +1,9 @@
 # light bridge polling
 
-polling app for hue bridge.
+polls hue light bridge for light status,\
+and restore lights to previous status when they become reachable.
 
-watch lights for reachable state,
-and restore them to previous status
+pass bridge adress to and user to npm start scripts:\
+
+```npm start -- <bridge address> <bridge user>```\
+```npm run watch:start -- <bridge address> <bridge user>```
