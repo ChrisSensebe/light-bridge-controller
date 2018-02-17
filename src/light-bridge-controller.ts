@@ -26,7 +26,6 @@ export class LightBridgeController {
             axios.default.get(`${this.bridgeUrl}${this.bridgeUser}/lights`)
                 .then(res => {
                     const fullState = res.data;
-                    console.log(fullState);
                     Object.keys(fullState).forEach(key => {
                         const newState = {
                             on: fullState[key].state.on,
