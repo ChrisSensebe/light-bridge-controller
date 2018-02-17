@@ -12,18 +12,18 @@ interface LightState {
 
 export class LightBridgeController {
 
-    bridgeUrl: string;
+    bridgeAddress: string;
     bridgeUser: string;
     lightsState: Map<string, LightState> = new Map();
 
     constructor(bridgeUrl: string, bridgeUser: string) {
-        this.bridgeUrl = bridgeUrl;
+        this.bridgeAddress = bridgeUrl;
         this.bridgeUser = bridgeUser;
     }
 
     watchLightBridge() {
         setInterval(() => {
-            axios.default.get(`${this.bridgeUrl}${this.bridgeUser}/lights`)
+            axios.default.get(`http://${this.bridgeAddress}/api/${this.bridgeUser}/lights`)
                 .then(res => {
                     const fullState = res.data;
                     Object.keys(fullState).forEach(key => {
@@ -50,13 +50,13 @@ export class LightBridgeController {
                         this.lightsState.set(key, newState);
                     });
                 })
-                .catch(err => console.log(`error getting light state, ${err}`));
+                .catch(err => console.log(`error getting light state, ${err.message}`));
         }, 1000);
     }
 
     setLightState(key: string, state: LightState) {
         axios.default
-            .put(`${this.bridgeUrl}${this.bridgeUser}/lights/${key}/state`, state)
-            .catch(err => console.log(`error setting  light state for light ${key}, ${err}`));
+            .put(`http://${this.bridgeAddress}/api/${this.bridgeUser}/lights/${key}/state`, state)
+            .catch(err => console.log(`error setting  light state for light ${key}, ${err.message}`));
     }
 }
