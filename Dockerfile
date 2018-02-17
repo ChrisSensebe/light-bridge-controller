@@ -5,5 +5,4 @@ COPY package*.json ./
 Run npm i --only=production
 ADD . /app
 RUN npm run build
-EXPOSE 8080
-CMD ["npm", "start"]
+ENTRYPOINT ["npm", "start"]
