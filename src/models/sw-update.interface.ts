@@ -1,4 +1,4 @@
 export interface SwUpdate {
-    state: string;
-    lastinstall: Date;
+  state: string;
+  lastinstall: Date;
 }

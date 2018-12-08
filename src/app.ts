@@ -1,8 +1,8 @@
 import {BridgeService} from './services/bridge.service';
 
 if (process.argv.length < 4) {
-    console.log(`Error provide bridge url as first argument and bridge user as second argument`);
-    process.exit(1);
+  console.log(`Error provide bridge url as first argument and bridge user as second argument`);
+  process.exit(1);
 }
 
 const bridgeAddress = process.argv[2];

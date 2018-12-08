@@ -1,4 +1,4 @@
 export interface Ct {
-    min: number;
-    max: number;
+  min: number;
+  max: number;
 }
