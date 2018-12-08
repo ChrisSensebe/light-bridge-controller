@@ -1,5 +1,6 @@
 import * as axios from 'axios';
 import {State} from '../models/state.interface';
+import {Light} from '../models/light.interface';
 
 export class BridgeService {
 
@@ -9,6 +10,16 @@ export class BridgeService {
   constructor(bridgeUrl: string, bridgeUser: string) {
     this.bridgeAddress = bridgeUrl;
     this.bridgeUser = bridgeUser;
+  }
+
+  getLights(): Light[] {
+    // TODO
+    return [];
+  }
+
+  getLight(lightId: string): Light {
+    // TODO
+    return undefined;
   }
 
   setLightState(lightId: string, state: State) {
