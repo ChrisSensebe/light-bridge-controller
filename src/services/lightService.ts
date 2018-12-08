@@ -2,10 +2,10 @@ import * as axios from 'axios';
 import {State} from '../models/state.interface';
 import {Light} from '../models/light.interface';
 
-export class BridgeService {
+export class LightService {
 
-  bridgeAddress: string;
-  bridgeUser: string;
+  private bridgeAddress: string;
+  private bridgeUser: string;
 
   constructor(bridgeUrl: string, bridgeUser: string) {
     this.bridgeAddress = bridgeUrl;
