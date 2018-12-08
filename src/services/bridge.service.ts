@@ -1,5 +1,5 @@
 import * as axios from 'axios';
-import {LightState} from '../models/light-state.interface';
+import {State} from '../models/state.interface';
 
 export class BridgeService {
 
@@ -11,7 +11,7 @@ export class BridgeService {
         this.bridgeUser = bridgeUser;
     }
 
-    setLightState(lightId: string, state: LightState) {
+    setLightState(lightId: string, state: State) {
         axios.default
             .put(`http://${this.bridgeAddress}/api/${this.bridgeUser}/lights/${lightId}/state`, state)
             .catch(err => console.log(`error setting  light state for light ${lightId}, ${err.message}`));
