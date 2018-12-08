@@ -1,14 +1,6 @@
 import * as axios from 'axios';
 import {setInterval} from 'timers';
-
-interface LightState {
-    on: boolean;
-    bri: number;
-    hue: number;
-    sat: number;
-    effect: string;
-    reachable: boolean;
-}
+import {LightState} from './models/light-state.interface';
 
 export class LightBridgeController {
 
