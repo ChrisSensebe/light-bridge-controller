@@ -7,4 +7,6 @@ export class CronService {
   constructor(lightService: LightService) {
     this.lightService = lightService;
   }
+
+  // TODO setCron(lightId, cron)
 }
