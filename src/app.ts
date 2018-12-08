@@ -1,4 +1,4 @@
-import {LightBridgeController} from './light-bridge-controller';
+import {BridgeService} from './services/bridge.service';
 
 if (process.argv.length < 4) {
     console.log(`Error provide bridge url as first argument and bridge user as second argument`);
@@ -9,7 +9,7 @@ if (process.argv.length < 4) {
 const bridgeAddress = process.argv[2];
 const bridgeUser = process.argv[3];
 
-const lightController = new LightBridgeController(bridgeAddress, bridgeUser);
+const lightController = new BridgeService(bridgeAddress, bridgeUser);
 lightController.watchLightBridge();
 
 console.log(`Watching hue bridge at ${bridgeAddress} with user ${bridgeUser}`);
