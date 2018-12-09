@@ -2,21 +2,20 @@ import * as express from 'express';
 import {Express} from 'express';
 import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
-import {LightService} from './services/lightService';
 import {CronService} from './services/cron.service';
 import {Routes} from './routes/routes';
 
 export default class App {
 
   private _express: Express;
+  private routes: Routes;
 
   constructor(
-    bridgeAdress: string,
-    bridgeUser: string,
-    lightService: LightService,
+    routes: Routes,
     cronService: CronService,
   ) {
     this._express = express();
+    this.routes = routes;
     this.bootstratMiddlewares();
     this.bootstrapRoutes();
   }
@@ -32,6 +31,6 @@ export default class App {
   }
 
   private bootstrapRoutes() {
-    this._express.use('/', Routes.getRoutes());
+    this._express.use('/', this.routes.getRoutes());
   }
 }

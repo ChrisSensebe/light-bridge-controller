@@ -4,6 +4,7 @@ import {onError} from './server-utils/on-error';
 import App from './app';
 import {LightService} from './services/lightService';
 import {CronService} from './services/cron.service';
+import {Routes} from './routes/routes';
 
 if (process.argv.length < 4) {
   console.log(`Error provide bridge url as first argument and bridge user as second argument`);
@@ -15,10 +16,9 @@ const bridgeUser = process.argv[3];
 const lightService = new LightService(bridgeAddress, bridgeUser);
 const cronService = new CronService(lightService);
 const port = 3000;
+const routes = new Routes(bridgeAddress, bridgeUser, lightService);
 const app = new App(
-  bridgeAddress,
-  bridgeUser,
-  lightService,
+  routes,
   cronService,
 );
 const express = app.express;
