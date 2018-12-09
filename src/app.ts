@@ -1,15 +1,37 @@
+import * as express from 'express';
+import {Express} from 'express';
+import * as bodyParser from 'body-parser';
+import * as logger from 'morgan';
 import {LightService} from './services/lightService';
 import {CronService} from './services/cron.service';
+import {Routes} from './routes/routes';
 
-if (process.argv.length < 4) {
-  console.log(`Error provide bridge url as first argument and bridge user as second argument`);
-  process.exit(1);
+export default class App {
+
+  private _express: Express;
+
+  constructor(
+    bridgeAdress: string,
+    bridgeUser: string,
+    lightService: LightService,
+    cronService: CronService,
+  ) {
+    this._express = express();
+    this.bootstratMiddlewares();
+    this.bootstrapRoutes();
+  }
+
+  get express(): Express {
+    return this._express;
+  }
+
+  private bootstratMiddlewares() {
+    this._express.use(logger('dev'));
+    this._express.use(bodyParser.json());
+    this._express.use(bodyParser.urlencoded({extended: false}));
+  }
+
+  private bootstrapRoutes() {
+    this._express.use('/', Routes.getRoutes());
+  }
 }
-
-const bridgeAddress = process.argv[2];
-const bridgeUser = process.argv[3];
-
-const bridgeService = new LightService(bridgeAddress, bridgeUser);
-const cronService = new CronService(bridgeService);
-
-console.log(`Watching hue bridge at ${bridgeAddress} with user ${bridgeUser}`);
