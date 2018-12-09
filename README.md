@@ -1,7 +1,4 @@
-# light bridge polling
-
-polls hue light bridge for light status,\
-and restore lights to previous status when they become reachable.
+# hue light bridge api
 
 pass bridge adress to and user to npm start scripts:\
 
