@@ -6,6 +6,7 @@ import {LightService} from './services/lightService';
 import {CronService} from './services/cron.service';
 import {Routes} from './routes/routes';
 
+// TODO use environment variables
 if (process.argv.length < 4) {
   console.log(`Error provide bridge url as first argument and bridge user as second argument`);
   process.exit(1);
