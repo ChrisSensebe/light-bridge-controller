@@ -5,18 +5,14 @@ import App from './app';
 import {LightService} from './services/lightService';
 import {CronService} from './services/cron.service';
 import {Routes} from './routes/routes';
+import {config} from './config';
 
-// TODO use environment variables
-if (process.argv.length < 4) {
-  console.log(`Error provide bridge url as first argument and bridge user as second argument`);
-  process.exit(1);
-}
+const bridgeAddress = config.bridgeUri;
+const bridgeUser = config.bridgeUser;
+const port = config.port;
 
-const bridgeAddress = process.argv[2];
-const bridgeUser = process.argv[3];
 const lightService = new LightService(bridgeAddress, bridgeUser);
 const cronService = new CronService(lightService);
-const port = 3000;
 const routes = new Routes(bridgeAddress, bridgeUser, lightService);
 const app = new App(
   routes,
