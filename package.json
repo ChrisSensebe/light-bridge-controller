@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/server.js",
+    "start-local": "node -r dotenv/config dist/server.js",
     "test": "node_modules/.bin/jest --forceExit --coverage --verbose --passWithNoTests",
     "build": "node_modules/.bin/tsc",
-    "watch:build": "tsc -w",
-    "watch:start": "nodemon dist/server.js",
-    "watch:test": "node_modules/.bin/jest --coverage --verbose --watch",
-    "watch:testAll": "node_modules/.bin/jest --coverage --verbose --watchAll"
+    "watch-build": "tsc -w",
+    "watch-start": "nodemon dist/server.js",
+    "watch-start-local": "nodemon --exec 'node -r dotenv/config dist/server.js'",
+    "watch-test": "node_modules/.bin/jest --coverage --verbose --watch",
+    "watch-testAll": "node_modules/.bin/jest --coverage --verbose --watchAll"
   },
   "keywords": [],
   "author": "ChrisSensebe",
