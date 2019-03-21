@@ -1,4 +1,4 @@
-module.exports = {
+export const config =  {
   port: process.env.PORT,
   databaseUri: process.env.DATABASE_URI,
   databaseUser: process.env.DATABASE_USER,
