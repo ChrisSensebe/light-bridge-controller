@@ -3,6 +3,7 @@ import {Router} from 'express';
 import {LightsController} from '../controllers/lights.controller';
 import {LightService} from '../services/lightService';
 import {Request, Response} from 'express';
+import {State} from '../models/state.interface';
 
 export class Routes {
 
@@ -31,6 +32,12 @@ export class Routes {
     router.get('/lights/:id', (req: Request, res: Response) => {
       const lightId = req.params.id;
       this.lightService.getLight(lightId).then(light => res.json({light}));
+    });
+    router.put('/lights/:id', (req: Request, res: Response) => {
+      const lightId = req.params.id;
+      const lightState = req.body as State;
+      this.lightService.setLightState(lightId, lightState)
+        .then(() => res.status(204).send());
     });
     return router;
   }
