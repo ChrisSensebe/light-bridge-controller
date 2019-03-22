@@ -1,6 +1,6 @@
 import * as express from 'express';
 import {Router} from 'express';
-import {LightsController} from '../controller/lights.controller';
+import {LightsController} from '../controllers/lights.controller';
 import {LightService} from '../services/lightService';
 import {Request, Response} from 'express';
 
