@@ -7,7 +7,7 @@ import {Routes} from './routes/routes';
 
 export default class App {
 
-  private _express: Express;
+  private readonly _express: Express;
   private routes: Routes;
 
   constructor(
