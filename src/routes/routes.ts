@@ -24,7 +24,9 @@ export class Routes {
     const router = express.Router();
     router.get('/', LightsController.getRoot);
     router.get('/lights', (req: Request, res: Response) => {
-      res.json(this.lightService.getLights());
+      this.lightService
+        .getLights()
+        .then(lights => res.json({lights}));
     });
     return router;
   }

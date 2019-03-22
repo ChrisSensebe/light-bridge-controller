@@ -12,9 +12,14 @@ export class LightService {
     this.bridgeUser = bridgeUser;
   }
 
-  getLights(): Light[] {
-    // TODO
-    return [];
+  getLights(): Promise<void | Light[]> {
+    return axios.default
+      .get(`http://${this.bridgeAddress}/api/${this.bridgeUser}/lights`)
+      .then(res => {
+        const data = res.data;
+        return Object.keys(data).map(key => data[key]);
+      })
+      .catch(err => console.log(err));
   }
 
   getLight(lightId: string): Light {
