@@ -5,7 +5,6 @@ import * as logger from 'morgan';
 import {CronService} from './services/cron.service';
 import {Routes} from './routes/routes';
 
-// TODO error handling
 export default class App {
 
   private readonly _express: Express;
