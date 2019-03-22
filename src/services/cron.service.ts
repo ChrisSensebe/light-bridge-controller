@@ -1,37 +1,33 @@
 import {LightService} from './lightService';
 import * as cron from 'node-cron';
 import {ScheduledTask} from 'node-cron';
-import {ScheduledState} from '../models/scheduledState.interface';
+import {IScheduledState} from '../models/scheduledState.interface';
 
 export class CronService {
 
   private lightService: LightService;
-  private tasks: ScheduledTask[] = []; // TODO use map to store tasks, with key = task id
+  private tasks: ScheduledTask[] = [];
 
   constructor(lightService: LightService) {
     this.lightService = lightService;
   }
 
   initTasksFromDb() {
-    // TODO init tasks from db at startup
   }
 
-  scheduleLightState(scheduledState: ScheduledState) {
+  scheduleLightState(scheduledState: IScheduledState) {
     const lightService = this.lightService;
     const task = cron.schedule(scheduledState.cronExpression, function () {
       lightService.setLightState(scheduledState.lightId, scheduledState.state);
     });
     this.tasks = this.tasks.concat(task);
     task.start();
-    // TODO save tasks config in db, to persist tasks
   }
 
   stopTask(taskId: string) {
-    // TODO
   }
 
   destroyTask(taskId: string) {
-    // TODO
   }
 
   clearTasks() {
