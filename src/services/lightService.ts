@@ -22,9 +22,11 @@ export class LightService {
       .catch(err => console.log(err));
   }
 
-  getLight(lightId: string): Light {
-    // TODO
-    return undefined;
+  getLight(lightId: string): Promise<Light> {
+    return axios.default
+      .get(`http://${this.bridgeAddress}/api/${this.bridgeUser}/lights/${lightId}`)
+      .then(res => res.data)
+      .catch(err => console.log(err));
   }
 
   setLightState(lightId: string, state: State) {

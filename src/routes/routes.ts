@@ -28,6 +28,10 @@ export class Routes {
         .getLights()
         .then(lights => res.json({lights}));
     });
+    router.get('/lights/:id', (req: Request, res: Response) => {
+      const lightId = req.params.id;
+      this.lightService.getLight(lightId).then(light => res.json({light}));
+    });
     return router;
   }
 }
