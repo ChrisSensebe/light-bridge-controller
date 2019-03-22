@@ -1,7 +1,7 @@
 import {LightService} from './lightService';
 import * as cron from 'node-cron';
-import {State} from '../models/state.interface';
 import {ScheduledTask} from 'node-cron';
+import {ScheduledState} from '../models/scheduledState.interface';
 
 export class CronService {
 
@@ -16,10 +16,10 @@ export class CronService {
     // TODO init tasks from db at startup
   }
 
-  scheduleLightState(cronExpression: string, ligthId: string, state: State) {
+  scheduleLightState(scheduledState: ScheduledState) {
     const lightService = this.lightService;
-    const task = cron.schedule(cronExpression, function () {
-      lightService.setLightState(ligthId, state);
+    const task = cron.schedule(scheduledState.cronExpression, function () {
+      lightService.setLightState(scheduledState.lightId, scheduledState.state);
     });
     this.tasks = this.tasks.concat(task);
     task.start();
