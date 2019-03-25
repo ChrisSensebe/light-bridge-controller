@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:10.15.3-alpine
 RUN npm i -g typescript
 WORKDIR /app
 COPY package*.json ./
