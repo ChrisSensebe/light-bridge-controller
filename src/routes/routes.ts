@@ -7,7 +7,7 @@ export class Routes {
 
   constructor(
     private rootController: RootController,
-    private lightsController: LightsController) {}
+    private lightsController: LightsController, ) {}
 
   public getRoutes(): Router {
     const router = express.Router();
