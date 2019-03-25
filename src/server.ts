@@ -9,8 +9,8 @@ import {config} from './config';
 import {LightsController} from './controllers/lights.controller';
 import {RootController} from './controllers/root.controller';
 
-const bridgeAddress = config.bridgeUri;
-const bridgeUser = config.bridgeUser;
+const bridgeAddress = config.bridgeUri || '';
+const bridgeUser = config.bridgeUser || '';
 const port = config.port;
 
 const lightService = new LightService(bridgeAddress, bridgeUser);
