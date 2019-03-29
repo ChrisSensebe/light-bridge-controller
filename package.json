@@ -1,8 +1,8 @@
 {
-  "name": "home-server",
+  "name": "light-bridge-controller",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node dist/server.js",
     "start:local": "node $NODE_DEBUG_OPTION -r dotenv/config dist/server.js",
