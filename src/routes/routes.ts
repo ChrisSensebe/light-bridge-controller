@@ -12,9 +12,9 @@ export class Routes {
   public getRoutes(): Router {
     const router = express.Router();
     router.get('/', this.rootController.getRoot);
-    router.get('/lights', this.lightsController.getLights);
-    router.get('/lights/:id', this.lightsController.getLight);
-    router.put('/lights/:id', this.lightsController.updateLight);
+    router.get('/lights', this.lightsController.getLights.bind(this.lightsController));
+    router.get('/lights/:id', this.lightsController.getLight.bind(this.lightsController));
+    router.put('/lights/:id', this.lightsController.updateLight.bind(this.lightsController));
     return router;
   }
 }
