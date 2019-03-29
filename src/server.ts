@@ -8,6 +8,7 @@ import {Routes} from './routes/routes';
 import {config} from './config';
 import {LightsController} from './controllers/lights.controller';
 import {RootController} from './controllers/root.controller';
+import {CronController} from './controllers/cron.controller';
 
 const bridgeAddress = config.bridgeUri || '';
 const bridgeUser = config.bridgeUser || '';
@@ -17,7 +18,8 @@ const lightService = new LightService(bridgeAddress, bridgeUser);
 const cronService = new CronService(lightService);
 const rootController = new RootController();
 const lightController = new LightsController(lightService);
-const routes = new Routes(rootController, lightController);
+const cronController = new CronController(cronService);
+const routes = new Routes(rootController, lightController, cronController);
 const app = new App(
   routes,
   cronService,

@@ -5,10 +5,9 @@ import {IScheduledState} from '../models/scheduledState.interface';
 
 export class CronService {
 
-  private lightService: LightService;
   private tasks: ScheduledTask[] = [];
 
-  constructor(lightService: LightService) {
+  constructor(private readonly lightService: LightService) {
     this.lightService = lightService;
   }
 
@@ -20,22 +19,35 @@ export class CronService {
     const task = cron.schedule(scheduledState.cronExpression, function () {
       lightService.setLightState(scheduledState.lightId, scheduledState.state);
     });
-    this.tasks = this.tasks.concat(task);
     task.start();
+    this.tasks = this.tasks.concat(task);
   }
 
-  stopTask(taskId: string) {
+  getTask(taskId: string): IScheduledState|undefined {
+    return undefined;
+  }
+
+  toggleTask(taskId: string) {
+
   }
 
   destroyTask(taskId: string) {
   }
 
   clearTasks() {
-    this.tasks.forEach(task => task.destroy);
+    this.tasks.forEach(this.destroyTask.bind(this));
     this.tasks = [];
   }
 
   stopTasks() {
     this.tasks.forEach(task => task.stop);
+  }
+
+  startTasks() {
+    this.tasks.forEach(task => task.start);
+  }
+
+  getTasks(): IScheduledState[] {
+    return [];
   }
 }
