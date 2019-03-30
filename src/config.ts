@@ -5,4 +5,5 @@ export const config =  {
   databasePwd: process.env.DATABASE_PASSWORD,
   bridgeUri: process.env.BRIDGE_URI,
   bridgeUser: process.env.BRIDGE_USER,
+  databaseName: process.env.DATABASE_NAME,
 };
