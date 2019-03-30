@@ -13,7 +13,11 @@ import {CronController} from './controllers/cron.controller';
 const bridgeAddress = config.bridgeUri || '';
 const bridgeUser = config.bridgeUser || '';
 const port = config.port;
-
+const databaseUri = config.databaseUri;
+const databaseUser = config.databaseUser;
+const databasePwd = config.databasePwd;
+const databaseName = config.databaseName;
+const dbFullUri = `mongodb://${databaseUser}:${databasePwd}@${databaseUri}/${databaseName}`;
 const lightService = new LightService(bridgeAddress, bridgeUser);
 const cronService = new CronService(lightService);
 const rootController = new RootController();
@@ -22,7 +26,7 @@ const cronController = new CronController(cronService);
 const routes = new Routes(rootController, lightController, cronController);
 const app = new App(
   routes,
-  cronService,
+  dbFullUri,
 );
 const express = app.express;
 const server = http.createServer(express);

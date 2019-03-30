@@ -2,8 +2,8 @@ import * as express from 'express';
 import {Express} from 'express';
 import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
-import {CronService} from './services/cron.service';
 import {Routes} from './routes/routes';
+import * as mongoose from 'mongoose';
 
 export default class App {
 
@@ -12,12 +12,13 @@ export default class App {
 
   constructor(
     routes: Routes,
-    cronService: CronService,
+    dbUri: string,
   ) {
     this._express = express();
     this.routes = routes;
     this.bootstratMiddlewares();
     this.bootstrapRoutes();
+    this.connectDatabase(dbUri);
   }
 
   get express(): Express {
@@ -32,5 +33,10 @@ export default class App {
 
   private bootstrapRoutes() {
     this._express.use('/', this.routes.getRoutes());
+  }
+
+  private connectDatabase(dbUri: string) {
+    mongoose.connect(dbUri, {useNewUrlParser: true})
+      .then(() => console.log('Connected to db'));
   }
 }
