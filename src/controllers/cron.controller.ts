@@ -8,9 +8,12 @@ export class CronController {
 
   scheduleLightState(req: Request, res: Response) {
     const scheduledState = req.body as IScheduledState;
-    this.cronService.scheduleLightState(scheduledState);
-    // TODO created ressource location
-    res.status(201).end();
+    this.cronService.scheduleLightState(scheduledState)
+      .then(id => {
+        // TODO created ressource location
+        console.log(id);
+        res.status(201).end();
+      });
   }
 
   toggleTask(req: Request, res: Response) {
