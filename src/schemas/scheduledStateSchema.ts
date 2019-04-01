@@ -7,6 +7,7 @@ export interface ScheduledStateModel extends IScheduledState, mongoose.Document 
 export const ScheduledStateSchema = new mongoose.Schema({
   cronExpression: String,
   lightId: String,
+  started: Boolean,
   state: {
     on: Boolean,
     bri: Number,
@@ -20,6 +21,6 @@ export const ScheduledStateSchema = new mongoose.Schema({
     mode: String,
     reachable: Boolean,
   },
-});
+}, { versionKey: false });
 
 export const ScheduledInterface: mongoose.Model<ScheduledStateModel> = model<ScheduledStateModel>('ScheduledState', ScheduledStateSchema);
