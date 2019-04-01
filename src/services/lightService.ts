@@ -26,7 +26,7 @@ export class LightService {
     return axios.default
       .get(`http://${this.bridgeAddress}/api/${this.bridgeUser}/lights/${lightId}`)
       .then(res => res.data)
-      .catch(err => console.log(err));
+      .catch(err => console.log(`error getting info for light ${lightId}, ${err.message}`));
   }
 
   setLightState(lightId: string, state: State): Promise<any> {
