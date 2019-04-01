@@ -8,11 +8,11 @@ export class CronController {
 
   scheduleLightState(req: Request, res: Response) {
     const scheduledState = req.body as IScheduledState;
-    this.cronService.scheduleLightState(scheduledState)
+    this.cronService
+      .scheduleLightState(scheduledState)
       .then(id => {
         const location = `/tasks/${id}`;
         res.set('Location', location);
-        console.log(id);
         res.status(201).end();
       });
   }
@@ -31,8 +31,9 @@ export class CronController {
 
   getTask(req: Request, res: Response) {
     const taskId = req.params.id;
-    const task = this.cronService.getTask(taskId);
-    res.status(200).send({task});
+    this.cronService
+      .getTask(taskId)
+      .then(task => res.json({task}).status(200).end());
   }
 
   getTasks(req: Request, res: Response) {
