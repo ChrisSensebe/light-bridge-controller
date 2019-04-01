@@ -19,7 +19,7 @@ export class LightService {
         const data = res.data;
         return Object.keys(data).map(key => data[key]);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(`error getting lights info, ${err.message}`));
   }
 
   getLight(lightId: string): Promise<Light> {
