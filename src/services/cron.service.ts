@@ -15,7 +15,7 @@ export class CronService {
   initTasksFromDb() {
   }
 
-  scheduleLightState(scheduledState: IScheduledState) {
+  scheduleLightState(scheduledState: IScheduledState): Promise<string> {
     const stateSchema = new ScheduledInterface(scheduledState);
     return stateSchema
       .save()
@@ -23,16 +23,28 @@ export class CronService {
         const id = saved._id.toString();
         const lightService = this.lightService;
         const task = cron.schedule(scheduledState.cronExpression, function () {
-          lightService.setLightState(scheduledState.lightId, scheduledState.state);
+          const lightId = scheduledState.lightId;
+          const state = scheduledState.state;
+          console.log(`light: ${lightId}; state: ${JSON.stringify(state)}`);
+          lightService.setLightState(lightId, state);
         });
+        if (saved.started) {
+          task.start();
+        }
         this.tasks.set(id, task);
-        task.start();
         return id;
       });
   }
 
-  getTask(taskId: string): IScheduledState|undefined {
-    return undefined;
+  getTask(taskId: string): Promise<IScheduledState> {
+    return ScheduledInterface
+      .findOne({_id: taskId})
+      .then(scheduledTask => {
+        if (!scheduledTask) {
+          throw new Error('no task found');
+        }
+        return scheduledTask;
+      });
   }
 
   toggleTask(taskId: string) {
