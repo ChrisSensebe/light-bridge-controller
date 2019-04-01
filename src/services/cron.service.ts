@@ -28,9 +28,7 @@ export class CronService {
           console.log(`light: ${lightId}; state: ${JSON.stringify(state)}`);
           lightService.setLightState(lightId, state);
         });
-        if (saved.started) {
-          task.start();
-        }
+        saved.started ? task.start() : task.stop();
         this.tasks.set(id, task);
         return id;
       });
