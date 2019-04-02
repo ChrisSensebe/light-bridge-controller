@@ -26,7 +26,7 @@ export default class App {
   }
 
   private bootstratMiddlewares() {
-    this._express.use(morgan('dev'));
+    this._express.use(morgan('combined'));
     this._express.use(bodyParser.json());
     this._express.use(bodyParser.urlencoded({extended: false}));
   }
