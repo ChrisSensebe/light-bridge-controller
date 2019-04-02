@@ -1,7 +1,7 @@
 import * as express from 'express';
 import {Express} from 'express';
 import * as bodyParser from 'body-parser';
-import * as logger from 'morgan';
+import * as morgan from 'morgan';
 import {Routes} from './routes/routes';
 import * as mongoose from 'mongoose';
 
@@ -26,7 +26,7 @@ export default class App {
   }
 
   private bootstratMiddlewares() {
-    this._express.use(logger('dev'));
+    this._express.use(morgan('dev'));
     this._express.use(bodyParser.json());
     this._express.use(bodyParser.urlencoded({extended: false}));
   }
