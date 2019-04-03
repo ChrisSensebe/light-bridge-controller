@@ -3,6 +3,7 @@ import * as cron from 'node-cron';
 import {ScheduledTask} from 'node-cron';
 import {IScheduledState} from '../models/scheduledState.interface';
 import {ScheduledInterface} from '../schemas/scheduledStateSchema';
+import logger from '../server-utils/logger';
 
 export class CronService {
 
@@ -25,7 +26,7 @@ export class CronService {
         const task = cron.schedule(scheduledState.cronExpression, function () {
           const lightId = scheduledState.lightId;
           const state = scheduledState.state;
-          console.log(`light: ${lightId}; state: ${JSON.stringify(state)}`);
+          logger.info(`light: ${lightId}; state: ${JSON.stringify(state)}`);
           lightService.setLightState(lightId, state);
         });
         saved.started ? task.start() : task.stop();

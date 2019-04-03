@@ -9,6 +9,7 @@ import {config} from './config';
 import {LightsController} from './controllers/lights.controller';
 import {RootController} from './controllers/root.controller';
 import {CronController} from './controllers/cron.controller';
+import logger from './server-utils/logger';
 
 const bridgeAddress = config.bridgeUri || '';
 const bridgeUser = config.bridgeUser || '';
@@ -33,8 +34,8 @@ const server = http.createServer(express);
 express.set('port', port);
 server.listen(port);
 const address = server.address();
-const appliedOnError = onError(console.error, address);
-const appliedOnListening = onListening(console.log, address);
+const appliedOnError = onError(logger.error, address);
+const appliedOnListening = onListening(logger.info, address);
 
 server.on('error', appliedOnError);
 server.on('listening', appliedOnListening);
