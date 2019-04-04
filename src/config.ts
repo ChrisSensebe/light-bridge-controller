@@ -7,4 +7,5 @@ export const config =  {
   bridgeUser: process.env.BRIDGE_USER,
   databaseName: process.env.DATABASE_NAME,
   loggerFormat: process.env.MORGAN_LOGGER_FORMAT,
+  logLevel: process.env.LOG_LEVEL,
 };

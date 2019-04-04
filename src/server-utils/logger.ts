@@ -1,7 +1,8 @@
 import * as winston from 'winston';
 import {format} from 'winston';
+import {config} from '../config';
 
-const logLevel = process.env.LOG_LEVEL || 'info';
+const logLevel = config.logLevel || 'info';
 
 const logger = winston.createLogger({
   transports: [
