@@ -29,9 +29,7 @@ export default class App {
 
   private bootstratMiddlewares() {
     const loggerFormat = config.loggerFormat || '';
-    this._express.use(morgan(loggerFormat, {stream: {
-        write: (message: string) => logger.info(message.slice(0, -1))
-      }}));
+    this._express.use(morgan(loggerFormat, {stream: {write: (message: string) => logger.info(message.slice(0, -1))}}));
     this._express.use(bodyParser.json());
     this._express.use(bodyParser.urlencoded({extended: false}));
   }

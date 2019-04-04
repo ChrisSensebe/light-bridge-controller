@@ -11,9 +11,9 @@ const logger = winston.createLogger({
       handleExceptions: true,
       format: format.combine(
         format.timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
-        format.printf(
-          log => `${log.timestamp} ${log.level}: ${log.message}${log.splat !== undefined ? `${log.splat}` : ' '}`
-    ))})
+        format.printf(log => `${log.timestamp} ${log.level}: ${log.message}${log.splat !== undefined ? `${log.splat}` : ' '}`)
+      )
+    })
   ],
   exitOnError: false
 });
