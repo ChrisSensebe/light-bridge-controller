@@ -28,6 +28,7 @@ const routes = new Routes(rootController, lightController, cronController);
 const app = new App(
   routes,
   dbFullUri,
+  cronService,
 );
 const express = app.express;
 const server = http.createServer(express);

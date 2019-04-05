@@ -13,7 +13,20 @@ export class CronService {
     this.lightService = lightService;
   }
 
-  initTasksFromDb() {
+  restoreTasksFromDb() {
+    this.tasks = new Map();
+    logger.info('restoring tasks...');
+    ScheduledInterface.find()
+      .then(scheduledTasks => scheduledTasks.forEach(scheduledTask => {
+        const lightId = scheduledTask.lightId;
+        const cronExpression = scheduledTask.cronExpression;
+        const state = scheduledTask.state;
+        const started = scheduledTask.started;
+        const scheduledState = {lightId, cronExpression, state, started};
+        const task = this.scheduleTask(scheduledState);
+        logger.info(`light: ${lightId}, cron: ${cronExpression}, on: ${started}, state: ${JSON.stringify(state)}`);
+        this.setTask(task, scheduledTask._id.toString(), scheduledTask.started);
+      }));
   }
 
   scheduleLightState(scheduledState: IScheduledState): Promise<string> {
@@ -22,15 +35,8 @@ export class CronService {
       .save()
       .then(saved => {
         const id = saved._id.toString();
-        const lightService = this.lightService;
-        const task = cron.schedule(scheduledState.cronExpression, function () {
-          const lightId = scheduledState.lightId;
-          const state = scheduledState.state;
-          logger.info(`light: ${lightId}; state: ${JSON.stringify(state)}`);
-          lightService.setLightState(lightId, state);
-        });
-        saved.started ? task.start() : task.stop();
-        this.tasks.set(id, task);
+        const task = this.scheduleTask(scheduledState);
+        this.setTask(task, id, saved.started);
         return id;
       });
   }
@@ -68,5 +74,20 @@ export class CronService {
 
   getTasks(): IScheduledState[] {
     return [];
+  }
+
+  private scheduleTask(scheduledState: IScheduledState): ScheduledTask {
+    const lightService = this.lightService;
+    return cron.schedule(scheduledState.cronExpression, function () {
+      const lightId = scheduledState.lightId;
+      const state = scheduledState.state;
+      logger.info(`light: ${lightId}; state: ${JSON.stringify(state)}`);
+      lightService.setLightState(lightId, state);
+    });
+  }
+
+  private setTask(task: ScheduledTask, id: string, started: boolean) {
+    started ? task.start() : task.stop();
+    this.tasks.set(id, task);
   }
 }

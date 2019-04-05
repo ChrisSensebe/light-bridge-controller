@@ -6,6 +6,7 @@ import * as mongoose from 'mongoose';
 import {config} from './config';
 import logger from './server-utils/logger';
 import * as bodyParser from 'body-parser';
+import {CronService} from './services/cron.service';
 
 export default class App {
 
@@ -15,6 +16,7 @@ export default class App {
   constructor(
     routes: Routes,
     dbUri: string,
+    private cronService: CronService,
   ) {
     this._express = express();
     this.routes = routes;
@@ -39,7 +41,11 @@ export default class App {
   }
 
   private connectDatabase(dbUri: string) {
+    const cronService = this.cronService;
     mongoose.connect(dbUri, {useNewUrlParser: true})
-      .then(() => logger.info('Connected to db'));
+      .then(() => {
+        logger.info('Connected to db');
+        cronService.restoreTasksFromDb();
+      });
   }
 }
