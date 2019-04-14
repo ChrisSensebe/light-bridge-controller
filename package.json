@@ -1,7 +1,8 @@
 {
   "name": "light-bridge-controller",
   "version": "1.0.0",
-  "description": "",
+  "description": "nodejs server to control and schedule tasks on philips hue bridge",
+  "repository": "https://github.com/ChrisSensebe/light-bridge-controller-back.git",
   "main": "server.js",
   "scripts": {
     "start": "node dist/server.js",
