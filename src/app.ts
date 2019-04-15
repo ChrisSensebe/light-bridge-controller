@@ -46,6 +46,7 @@ export default class App {
       .then(() => {
         logger.info('Connected to db');
         cronService.restoreTasksFromDb();
-      });
+      })
+      .catch(err => console.log(err));
   }
 }
